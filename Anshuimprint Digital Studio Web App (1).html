@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anshuimprint Digital Studio | Photo Restoration & PVC Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        navy: {
+                            800: '#0f172a',
+                            900: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .img-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .img-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .img-before-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .slider-divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 20;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 2px solid #16a34a;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-900 text-white text-xs sm:text-sm py-2 px-4 text-center border-b border-slate-800 flex items-center justify-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span><strong>Live Studio Status:</strong> Accepting Instant Online Orders (Kolkata & Remote)</span>
+    </div>
+
+    <!-- Main Explicit Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white font-black text-xl shadow-md">
+                    A
+                </div>
+                <div>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 block leading-none">Anshuimprint</span>
+                    <span class="text-xs text-emerald-600 font-semibold tracking-wider uppercase block mt-1">Digital Studio</span>
+                </div>
+            </a>
+
+            <!-- Expanded Navigation Menu (Always Text-Visible across all screen sizes) -->
+            <nav class="flex items-center gap-1 sm:gap-3 overflow-x-auto py-1">
+                <a href="#gallery" class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-images mr-1.5 text-emerald-600"></i>Gallery
+                </a>
+                <a href="#pricing" class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-tag mr-1.5 text-emerald-600"></i>Pricing
+                </a>
+                <a href="#order" class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-paper-plane mr-1.5 text-emerald-600"></i>Order
+                </a>
+                <a href="#faq" class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-circle-question mr-1.5 text-emerald-600"></i>FAQ
+                </a>
+                <a href="#contact" class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-phone mr-1.5 text-emerald-600"></i>Contact
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="relative bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white py-12 lg:py-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Left Hero Details -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-medium">
+                            <i class="fa-solid fa-shield-halved"></i> 100% Risk-Free: Pay Only After Watermarked Preview Approval
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Restore Damaged Photos & Format Official Cards Online
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                            Bring precious family album memories back to vivid HD color or format your Aadhaar, PAN, & voter IDs into print-ready PVC cards. Send your photos directly via WhatsApp or Email.
+                        </p>
+                        
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#order" class="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-upload"></i> Send Photo For Preview
+                            </a>
+                            <a href="#gallery" class="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-base transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-sliders"></i> View Real Restorations
+                            </a>
+                        </div>
+
+                        <!-- Trust Features Grid -->
+                        <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-6 border-t border-slate-800 text-center">
+                            <div class="p-2">
+                                <div class="text-emerald-400 font-bold text-lg sm:text-xl">₹0 Upfront</div>
+                                <div class="text-slate-400 text-xs">Free Initial Preview</div>
+                            </div>
+                            <div class="p-2 border-x border-slate-800">
+                                <div class="text-emerald-400 font-bold text-lg sm:text-xl">24 Hours</div>
+                                <div class="text-slate-400 text-xs">Fast Digital Delivery</div>
+                            </div>
+                            <div class="p-2">
+                                <div class="text-emerald-400 font-bold text-lg sm:text-xl">UPI Ready</div>
+                                <div class="text-slate-400 text-xs">Easy & Secure Payment</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Slideshow Feature Display -->
+                    <div class="lg:col-span-5">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700 bg-slate-800">
+                            <div id="hero-carousel" class="relative h-72 sm:h-96 w-full">
+                                <!-- Slide 1 -->
+                                <div class="carousel-slide absolute inset-0 transition-opacity duration-700 opacity-100 flex flex-col justify-end p-6 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent), url('1000193001.png');">
+                                    <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded w-max mb-2">Master Restoration</span>
+                                    <h3 class="text-lg font-bold text-white">Full Portrait Colorization</h3>
+                                    <p class="text-xs text-slate-300">Sepia scratched photos restored into high-definition digital portraits.</p>
+                                </div>
+                                <!-- Slide 2 -->
+                                <div class="carousel-slide absolute inset-0 transition-opacity duration-700 opacity-0 flex flex-col justify-end p-6 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent), url('1000193002.png');">
+                                    <span class="bg-teal-600 text-white text-xs font-bold px-2.5 py-1 rounded w-max mb-2">Architectural Restorations</span>
+                                    <h3 class="text-lg font-bold text-white">Scenery & Wood Restoration</h3>
+                                    <p class="text-xs text-slate-300">B&W vintage structures transformed into vibrant natural tone renders.</p>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-3 right-4 flex gap-1.5 z-20">
+                                <span class="carousel-dot w-2.5 h-2.5 rounded-full bg-emerald-500 cursor-pointer" onclick="setSlide(0)"></span>
+                                <span class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-500 cursor-pointer" onclick="setSlide(1)"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Proven Results</h2>
+                    <p class="text-3xl font-extrabold text-slate-900 sm:text-4xl">Interactive Before & After Gallery</p>
+                    <p class="text-slate-600 mt-3 text-sm sm:text-base">Drag the center slider left and right to compare the original state with our digital restoration work.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Slider 1: Mother & Baby Portrait Restoration -->
+                    <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Sample 1: Portrait Restoration</span>
+                                <span class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-arrows-left-right mr-1"></i> Drag to compare</span>
+                            </div>
+                            <div class="slider-container h-80 sm:h-96 rounded-xl border border-slate-300 shadow-inner overflow-hidden" id="slider-1">
+                                <!-- Restored Image (After) -->
+                                <img src="1000193001.png" alt="Restored Colorized Mother and Baby Portrait" class="img-after">
+                                <!-- Original Image (Before Wrapper) -->
+                                <div class="img-before-wrapper" id="wrapper-1">
+                                    <img src="1000192996.jpg" alt="Original Sepia Scratched Mother and Baby Photo" class="img-before">
+                                </div>
+                                <!-- Divider & Control Handle -->
+                                <div class="slider-divider" id="divider-1">
+                                    <div class="slider-button">
+                                        <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h3 class="font-bold text-slate-900 text-base">Sepia Scratched Portrait $\rightarrow$ HD Colorized Memory</h3>
+                            <p class="text-xs text-slate-600 mt-1">Full restoration: Scratches and surface cracks removed, facial features sharpened, and natural sepia tone converted to soft natural portrait colors.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2: Architecture / Scenery Restoration -->
+                    <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-100 px-3 py-1 rounded-full">Sample 2: Wooden Architecture</span>
+                                <span class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-arrows-left-right mr-1"></i> Drag to compare</span>
+                            </div>
+                            <div class="slider-container h-80 sm:h-96 rounded-xl border border-slate-300 shadow-inner overflow-hidden" id="slider-2">
+                                <!-- Restored Image (After) -->
+                                <img src="1000193002.png" alt="Restored Wooden Structure and Glass Windows" class="img-after">
+                                <!-- Original Image (Before Wrapper) -->
+                                <div class="img-before-wrapper" id="wrapper-2">
+                                    <img src="1000192995.jpg" alt="Original Monochromatic Grainy Window Photo" class="img-before">
+                                </div>
+                                <!-- Divider & Control Handle -->
+                                <div class="slider-divider" id="divider-2">
+                                    <div class="slider-button">
+                                        <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h3 class="font-bold text-slate-900 text-base">Monochromatic Grainy Shot $\rightarrow$ Warm Wood Texture</h3>
+                            <p class="text-xs text-slate-600 mt-1">Full restoration: Film noise eliminated, intricate curtain details clarified, and authentic warm wooden architecture tones restored.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-16 bg-slate-100 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Clear Transparent Rates</h2>
+                    <p class="text-3xl font-extrabold text-slate-900 sm:text-4xl">Simple Service Pricing</p>
+                    <p class="text-slate-600 mt-3 text-sm sm:text-base">No hidden charges. You review the watermarked file first, pay via UPI, and receive your unwatermarked HD original.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tier 1 -->
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-500 transition-all">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Standard</span>
+                                <i class="fa-solid fa-id-card text-slate-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">PVC Card Layout</h3>
+                            <p class="text-xs text-slate-500 mt-1">Aadhaar, PAN, Voter ID, Smart Card Print Formatting</p>
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-slate-900">₹80</span>
+                                <span class="text-slate-500 text-sm"> / document</span>
+                            </div>
+                            <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> CR80 Standard PVC Card Dimensions</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Front & Back Alignment</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> HD Resolution Print Ready PDF</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Delivered in 2-4 Hours</li>
+                            </ul>
+                        </div>
+                        <a href="#order" class="mt-8 w-full py-3 px-4 rounded-xl border-2 border-emerald-600 text-emerald-600 font-bold text-center text-sm hover:bg-emerald-600 hover:text-white transition-all block">Select PVC Service</a>
+                    </div>
+
+                    <!-- Tier 2 Popular -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-8 border-2 border-emerald-500 shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
+                        <div class="absolute -top-3.5 right-6 bg-emerald-500 text-white font-bold text-xs uppercase px-3 py-1 rounded-full shadow">Most Popular</div>
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full">Enhancement</span>
+                                <i class="fa-solid fa-wand-magic-sparkles text-emerald-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Basic Photo Touch-up</h3>
+                            <p class="text-xs text-slate-400 mt-1">Minor spot removal, contrast, & sharpening</p>
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-white">₹120</span>
+                                <span class="text-slate-400 text-sm"> / photo</span>
+                            </div>
+                            <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Color & Brightness Correction</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Face Softening & Clarity Polish</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Minor Dust & Scratch Removal</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Watermarked Free Preview</li>
+                            </ul>
+                        </div>
+                        <a href="#order" class="mt-8 w-full py-3 px-4 rounded-xl bg-emerald-600 text-white font-bold text-center text-sm hover:bg-emerald-500 shadow-lg shadow-emerald-600/40 transition-all block">Select Touch-up Service</a>
+                    </div>
+
+                    <!-- Tier 3 -->
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-500 transition-all">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Pro Restoration</span>
+                                <i class="fa-solid fa-image-portrait text-slate-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Full Photo Restoration</h3>
+                            <p class="text-xs text-slate-500 mt-1">Heavy tear fix, sepia to colorization & face rebuilding</p>
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-slate-900">₹220</span>
+                                <span class="text-slate-500 text-sm"> / photo</span>
+                            </div>
+                            <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Full B&W to Realistic Colorization</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Rebuilding Torn, Stained or Faded Areas</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Facial Feature Reconstruction</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Ultra-HD Digital File Export</li>
+                            </ul>
+                        </div>
+                        <a href="#order" class="mt-8 w-full py-3 px-4 rounded-xl border-2 border-emerald-600 text-emerald-600 font-bold text-center text-sm hover:bg-emerald-600 hover:text-white transition-all block">Select Restoration Service</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="order" class="py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
+
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+                        <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full mb-2">Zero Upfront Payment Required</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">Submit Your Order Request</h2>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-2">Upload or send your photo using WhatsApp or Email. We will process your preview and send it to you before any payment is requested.</p>
+                    </div>
+
+                    <!-- Direct Channel Action Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <a href="https://wa.me/918274062100?text=Hello%20Anshuimprint%20Studio,%20I%20would%20like%20to%20get%20a%20photo%20restoration%20/%20PVC%20layout%20preview." target="_blank" class="p-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center gap-3 font-bold transition-all shadow-lg shadow-emerald-600/30">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <div class="text-left">
+                                <div class="text-xs text-emerald-100 font-normal">Fastest Response</div>
+                                <div>Order via WhatsApp</div>
+                            </div>
+                        </a>
+                        <a href="mailto:anshuimprint123@gmail.com?subject=Photo%20Restoration%20Order%20Request" class="p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-3 font-bold transition-all">
+                            <i class="fa-solid fa-envelope text-2xl text-emerald-400"></i>
+                            <div class="text-left">
+                                <div class="text-xs text-slate-400 font-normal">Official Channel</div>
+                                <div>Order via Email</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Interactive Order Form -->
+                    <form id="studio-order-form" onsubmit="handleFormSubmit(event)" class="space-y-4 bg-slate-800/80 p-5 sm:p-6 rounded-2xl border border-slate-700">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Your Full Name</label>
+                                <input type="text" id="cust-name" required placeholder="e.g. Anish Kumar" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">WhatsApp / Phone Number</label>
+                                <input type="tel" id="cust-phone" required placeholder="e.g. 9876543210" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Select Service Type</label>
+                                <select id="cust-service" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500">
+                                    <option value="PVC Card Layout (₹80)">PVC Card Layout (₹80)</option>
+                                    <option value="Basic Photo Touch-up (₹120)">Basic Photo Touch-up (₹120)</option>
+                                    <option value="Full Photo Restoration (₹220)" selected>Full Photo Restoration (₹220)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Upload Photo File (Optional)</label>
+                                <input type="file" id="cust-file" accept="image/*,.pdf" class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Specific Restoration Instructions</label>
+                            <textarea id="cust-notes" rows="2" placeholder="e.g. Please colorize the suit blue and remove the center scratch..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Submit Order Request to WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-16 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Got Questions?</h2>
+                    <p class="text-3xl font-extrabold text-slate-900">Frequently Asked Questions</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-2"><i class="fa-solid fa-circle-question text-emerald-600 mr-2"></i>How do I receive my completed restored photo?</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">We will first send a watermarked digital preview directly to your WhatsApp or Email. Once you inspect and approve the result, you pay via UPI (GPay/PhonePe/Paytm), and we instantly send you the high-resolution unwatermarked file.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-2"><i class="fa-solid fa-circle-question text-emerald-600 mr-2"></i>What if I don't have a scanner for my old photograph?</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">No scanner needed! Simply take a clear photo of your old physical photo using your smartphone camera in well-lit daylight (avoid heavy glass reflections) and upload it here.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-2"><i class="fa-solid fa-circle-question text-emerald-600 mr-2"></i>What is the PVC Card Layout service?</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">If you have downloaded digital PDF documents (such as Aadhaar, PAN card, or Voter ID), we resize and format front-and-back pages precisely into standard CR80 wallet card size so you can get them printed on PVC plastic easily.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 bg-slate-900 text-white border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Column 1 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center font-bold text-xl">A</div>
+                            <span class="text-xl font-bold">Anshuimprint Studio</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                            Professional local photo restoration, digital touch-ups, and document formatting hub serving South Kolkata & remote online clients.
+                        </p>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-400">Direct Studio Contacts</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-emerald-500 w-4"></i>
+                                <span>+91 8274062100</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-envelope text-emerald-500 w-4"></i>
+                                <span>anshuimprint123@gmail.com</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-emerald-500 w-4"></i>
+                                <span>South Kolkata, West Bengal, India</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-400">Guaranteed Studio Trust</h4>
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-xs text-slate-300 space-y-2">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-shield-cat text-emerald-400"></i> Free Watermarked Preview</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-qrcode text-emerald-400"></i> Secure PhonePe / GPay / Paytm UPI</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-lock text-emerald-400"></i> 100% Photo Privacy Guaranteed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+                    &copy; <span id="current-year"></span> Anshuimprint Digital Studio. All rights reserved.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Banner Slideshow Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function setSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('opacity-0');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.remove('opacity-100');
+                    slide.classList.add('opacity-0');
+                }
+            });
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.remove('bg-slate-500');
+                    dot.classList.add('bg-emerald-500');
+                } else {
+                    dot.classList.remove('bg-emerald-500');
+                    dot.classList.add('bg-slate-500');
+                }
+            });
+            currentSlide = index;
+        }
+
+        setInterval(() => {
+            let nextSlide = (currentSlide + 1) % slides.length;
+            setSlide(nextSlide);
+        }, 4000);
+
+        // Before/After Comparison Slider Logic
+        function setupBeforeAfterSlider(containerId, wrapperId, dividerId) {
+            const container = document.getElementById(containerId);
+            const wrapper = document.getElementById(wrapperId);
+            const divider = document.getElementById(dividerId);
+            let isDragging = false;
+
+            function move(x) {
+                const rect = container.getBoundingClientRect();
+                let position = x - rect.left;
+                if (position < 0) position = 0;
+                if (position > rect.width) position = rect.width;
+                const percentage = (position / rect.width) * 100;
+                wrapper.style.width = percentage + '%';
+                divider.style.left = percentage + '%';
+            }
+
+            // Mouse events
+            divider.addEventListener('mousedown', () => { isDragging = true; });
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) move(e.clientX);
+            });
+
+            // Touch events
+            divider.addEventListener('touchstart', () => { isDragging = true; });
+            window.addEventListener('touchend', () => { isDragging = false; });
+            container.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches[0]) move(e.touches[0].clientX);
+            });
+        }
+
+        setupBeforeAfterSlider('slider-1', 'wrapper-1', 'divider-1');
+        setupBeforeAfterSlider('slider-2', 'wrapper-2', 'divider-2');
+
+        // Form Submit Handler -> Redirects cleanly to WhatsApp with preset order details
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const service = document.getElementById('cust-service').value;
+            const notes = document.getElementById('cust-notes').value;
+
+            const textMsg = `Hello Anshuimprint Studio,%0A%0AI want to place an order:%0A- *Name:* ${encodeURIComponent(name)}%0A- *Phone:* ${encodeURIComponent(phone)}%0A- *Service:* ${encodeURIComponent(service)}%0A- *Instructions:* ${encodeURIComponent(notes || 'None')}%0A%0AI will attach my photo file in this chat for the free preview.`;
+            
+            window.open(`https://wa.me/918274062100?text=${textMsg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
